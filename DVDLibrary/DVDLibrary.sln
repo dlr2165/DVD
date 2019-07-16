@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DVDLibrary", "DVDLibrary\DVDLibrary.csproj", "{F79609B5-EE06-43C5-9323-0D6AC2BEFBDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DVDWebAPI", "..\DVDWebAPI\DVDWebAPI\DVDWebAPI.csproj", "{89FD1C8A-36CF-448C-B085-43279C313230}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F79609B5-EE06-43C5-9323-0D6AC2BEFBDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F79609B5-EE06-43C5-9323-0D6AC2BEFBDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F79609B5-EE06-43C5-9323-0D6AC2BEFBDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F79609B5-EE06-43C5-9323-0D6AC2BEFBDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89FD1C8A-36CF-448C-B085-43279C313230}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89FD1C8A-36CF-448C-B085-43279C313230}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89FD1C8A-36CF-448C-B085-43279C313230}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89FD1C8A-36CF-448C-B085-43279C313230}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AF61875-10A1-4417-BDB5-3FAD36E90AB9}
+	EndGlobalSection
+EndGlobal

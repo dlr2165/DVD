@@ -1,0 +1,601 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DVDLibraryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Director">
+          <Key>
+            <PropertyRef Name="directorID" />
+          </Key>
+          <Property Name="directorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="middleName" Type="varchar" MaxLength="15" />
+          <Property Name="lastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="birthDate" Type="date" Nullable="false" />
+          <Property Name="deathDate" Type="date" />
+        </EntityType>
+        <EntityType Name="DVD">
+          <Key>
+            <PropertyRef Name="dvdID" />
+          </Key>
+          <Property Name="dvdID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="releaseYear" Type="int" Nullable="false" />
+          <Property Name="directorID" Type="int" Nullable="false" />
+          <Property Name="ratingID" Type="int" Nullable="false" />
+          <Property Name="notes" Type="varchar" MaxLength="152" />
+        </EntityType>
+        <EntityType Name="Ratings">
+          <Key>
+            <PropertyRef Name="ratingID" />
+          </Key>
+          <Property Name="ratingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rating" Type="varchar" MaxLength="5" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__DVD__directorID__145C0A3F">
+          <End Role="Director" Type="Self.Director" Multiplicity="1" />
+          <End Role="DVD" Type="Self.DVD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Director">
+              <PropertyRef Name="directorID" />
+            </Principal>
+            <Dependent Role="DVD">
+              <PropertyRef Name="directorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DVD__ratingID__15502E78">
+          <End Role="Ratings" Type="Self.Ratings" Multiplicity="1" />
+          <End Role="DVD" Type="Self.DVD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ratings">
+              <PropertyRef Name="ratingID" />
+            </Principal>
+            <Dependent Role="DVD">
+              <PropertyRef Name="ratingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="sp_DirectorDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="directorID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DirectorInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="firstName" Type="varchar" Mode="In" />
+          <Parameter Name="middleName" Type="varchar" Mode="In" />
+          <Parameter Name="lastName" Type="varchar" Mode="In" />
+          <Parameter Name="birthDate" Type="date" Mode="In" />
+          <Parameter Name="deathDate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="sp_DirectorSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="directorID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DirectorUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="directorID" Type="int" Mode="In" />
+          <Parameter Name="firstName" Type="varchar" Mode="In" />
+          <Parameter Name="middleName" Type="varchar" Mode="In" />
+          <Parameter Name="lastName" Type="varchar" Mode="In" />
+          <Parameter Name="birthDate" Type="date" Mode="In" />
+          <Parameter Name="deathDate" Type="date" Mode="In" />
+        </Function>
+        <Function Name="sp_DVDDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dvdID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DVDInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="title" Type="varchar" Mode="In" />
+          <Parameter Name="releaseYear" Type="int" Mode="In" />
+          <Parameter Name="directorID" Type="int" Mode="In" />
+          <Parameter Name="ratingID" Type="int" Mode="In" />
+          <Parameter Name="notes" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_DVDSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dvdID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DVDSelectdetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dvdID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_DVDUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dvdID" Type="int" Mode="In" />
+          <Parameter Name="title" Type="varchar" Mode="In" />
+          <Parameter Name="releaseYear" Type="int" Mode="In" />
+          <Parameter Name="directorID" Type="int" Mode="In" />
+          <Parameter Name="ratingID" Type="int" Mode="In" />
+          <Parameter Name="notes" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_RatingDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ratingID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_RatingInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="rating" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_RatingSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ratingID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_RatingUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ratingID" Type="int" Mode="In" />
+          <Parameter Name="rating" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_SelectDVDByDirector" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="directorName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_SelectDVDByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dvdID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_SelectDVDByRating" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="rating" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_SelectDVDByTitle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="title" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_SelectDVDByYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="releaseYear" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="DVDLibraryModelStoreContainer">
+          <EntitySet Name="Director" EntityType="Self.Director" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DVD" EntityType="Self.DVD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ratings" EntityType="Self.Ratings" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__DVD__directorID__145C0A3F" Association="Self.FK__DVD__directorID__145C0A3F">
+            <End Role="Director" EntitySet="Director" />
+            <End Role="DVD" EntitySet="DVD" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DVD__ratingID__15502E78" Association="Self.FK__DVD__ratingID__15502E78">
+            <End Role="Ratings" EntitySet="Ratings" />
+            <End Role="DVD" EntitySet="DVD" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DVDLibraryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Director">
+          <Key>
+            <PropertyRef Name="directorID" />
+          </Key>
+          <Property Name="directorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="middleName" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="birthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="deathDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="DVDs" Relationship="Self.FK__DVD__directorID__145C0A3F" FromRole="Director" ToRole="DVD" />
+        </EntityType>
+        <EntityType Name="DVD">
+          <Key>
+            <PropertyRef Name="dvdID" />
+          </Key>
+          <Property Name="dvdID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="releaseYear" Type="Int32" Nullable="false" />
+          <Property Name="directorID" Type="Int32" Nullable="false" />
+          <Property Name="ratingID" Type="Int32" Nullable="false" />
+          <Property Name="notes" Type="String" MaxLength="152" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Director" Relationship="Self.FK__DVD__directorID__145C0A3F" FromRole="DVD" ToRole="Director" />
+          <NavigationProperty Name="Rating" Relationship="Self.FK__DVD__ratingID__15502E78" FromRole="DVD" ToRole="Ratings" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="ratingID" />
+          </Key>
+          <Property Name="ratingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rating1" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="DVDs" Relationship="Self.FK__DVD__ratingID__15502E78" FromRole="Ratings" ToRole="DVD" />
+        </EntityType>
+        <Association Name="FK__DVD__directorID__145C0A3F">
+          <End Role="Director" Type="Self.Director" Multiplicity="1" />
+          <End Role="DVD" Type="Self.DVD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Director">
+              <PropertyRef Name="directorID" />
+            </Principal>
+            <Dependent Role="DVD">
+              <PropertyRef Name="directorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__DVD__ratingID__15502E78">
+          <End Role="Ratings" Type="Self.Rating" Multiplicity="1" />
+          <End Role="DVD" Type="Self.DVD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ratings">
+              <PropertyRef Name="ratingID" />
+            </Principal>
+            <Dependent Role="DVD">
+              <PropertyRef Name="ratingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Directors" EntityType="Self.Director" />
+          <EntitySet Name="DVDs" EntityType="Self.DVD" />
+          <EntitySet Name="Ratings" EntityType="Self.Rating" />
+          <AssociationSet Name="FK__DVD__directorID__145C0A3F" Association="Self.FK__DVD__directorID__145C0A3F">
+            <End Role="Director" EntitySet="Directors" />
+            <End Role="DVD" EntitySet="DVDs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__DVD__ratingID__15502E78" Association="Self.FK__DVD__ratingID__15502E78">
+            <End Role="Ratings" EntitySet="Ratings" />
+            <End Role="DVD" EntitySet="DVDs" />
+          </AssociationSet>
+          <FunctionImport Name="sp_DirectorDelete">
+            <Parameter Name="directorID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DirectorInsert" ReturnType="Collection(Int32)">
+            <Parameter Name="firstName" Mode="In" Type="String" />
+            <Parameter Name="middleName" Mode="In" Type="String" />
+            <Parameter Name="lastName" Mode="In" Type="String" />
+            <Parameter Name="birthDate" Mode="In" Type="DateTime" />
+            <Parameter Name="deathDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DirectorSelect" ReturnType="Collection(DVDLibraryModel.sp_DirectorSelect_Result)">
+            <Parameter Name="directorID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DirectorUpdate">
+            <Parameter Name="directorID" Mode="In" Type="Int32" />
+            <Parameter Name="firstName" Mode="In" Type="String" />
+            <Parameter Name="middleName" Mode="In" Type="String" />
+            <Parameter Name="lastName" Mode="In" Type="String" />
+            <Parameter Name="birthDate" Mode="In" Type="DateTime" />
+            <Parameter Name="deathDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DVDDelete">
+            <Parameter Name="dvdID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DVDInsert" ReturnType="Collection(Int32)">
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="releaseYear" Mode="In" Type="Int32" />
+            <Parameter Name="directorID" Mode="In" Type="Int32" />
+            <Parameter Name="ratingID" Mode="In" Type="Int32" />
+            <Parameter Name="notes" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DVDSelect" ReturnType="Collection(DVDLibraryModel.sp_DVDSelect_Result)">
+            <Parameter Name="dvdID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DVDSelectdetail" ReturnType="Collection(DVDLibraryModel.sp_DVDSelectdetail_Result)">
+            <Parameter Name="dvdID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DVDUpdate">
+            <Parameter Name="dvdID" Mode="In" Type="Int32" />
+            <Parameter Name="title" Mode="In" Type="String" />
+            <Parameter Name="releaseYear" Mode="In" Type="Int32" />
+            <Parameter Name="directorID" Mode="In" Type="Int32" />
+            <Parameter Name="ratingID" Mode="In" Type="Int32" />
+            <Parameter Name="notes" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_RatingDelete">
+            <Parameter Name="ratingID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_RatingInsert" ReturnType="Collection(Int32)">
+            <Parameter Name="rating" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_RatingSelect" ReturnType="Collection(DVDLibraryModel.sp_RatingSelect_Result)">
+            <Parameter Name="ratingID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_RatingUpdate">
+            <Parameter Name="ratingID" Mode="In" Type="Int32" />
+            <Parameter Name="rating" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_SelectDVDByDirector" ReturnType="Collection(DVDLibraryModel.sp_SelectDVDByDirector_Result)">
+            <Parameter Name="directorName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_SelectDVDByID" ReturnType="Collection(DVDLibraryModel.sp_SelectDVDByID_Result)">
+            <Parameter Name="dvdID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_SelectDVDByRating" ReturnType="Collection(DVDLibraryModel.sp_SelectDVDByRating_Result)">
+            <Parameter Name="rating" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_SelectDVDByTitle" ReturnType="Collection(DVDLibraryModel.sp_SelectDVDByTitle_Result)">
+            <Parameter Name="title" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_SelectDVDByYear" ReturnType="Collection(DVDLibraryModel.sp_SelectDVDByYear_Result)">
+            <Parameter Name="releaseYear" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_DirectorSelect_Result">
+          <Property Type="Int32" Name="directorID" Nullable="false" />
+          <Property Type="String" Name="director" Nullable="true" MaxLength="52" />
+        </ComplexType>
+        <ComplexType Name="sp_DVDSelect_Result">
+          <Property Type="Int32" Name="dvdID" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="releaseYear" Nullable="false" />
+          <Property Type="Int32" Name="directorID" Nullable="false" />
+          <Property Type="Int32" Name="ratingID" Nullable="false" />
+          <Property Type="String" Name="notes" Nullable="true" MaxLength="152" />
+        </ComplexType>
+        <ComplexType Name="sp_DVDSelectdetail_Result">
+          <Property Type="Int32" Name="dvdID" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="releaseYear" Nullable="false" />
+          <Property Type="Int32" Name="directorID" Nullable="false" />
+          <Property Type="Int32" Name="ratingID" Nullable="false" />
+          <Property Type="String" Name="notes" Nullable="true" MaxLength="152" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="middleName" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="birthDate" Nullable="false" />
+          <Property Type="DateTime" Name="deathDate" Nullable="true" />
+          <Property Type="String" Name="rating" Nullable="false" MaxLength="5" />
+        </ComplexType>
+        <ComplexType Name="sp_RatingSelect_Result">
+          <Property Type="Int32" Name="ratingID" Nullable="false" />
+          <Property Type="String" Name="rating" Nullable="false" MaxLength="5" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectDVDByDirector_Result">
+          <Property Type="Int32" Name="dvdID" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="releaseYear" Nullable="false" />
+          <Property Type="Int32" Name="directorID" Nullable="false" />
+          <Property Type="Int32" Name="ratingID" Nullable="false" />
+          <Property Type="String" Name="notes" Nullable="true" MaxLength="152" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="middleName" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="birthDate" Nullable="false" />
+          <Property Type="DateTime" Name="deathDate" Nullable="true" />
+          <Property Type="String" Name="rating" Nullable="false" MaxLength="5" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectDVDByID_Result">
+          <Property Type="Int32" Name="dvdID" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="releaseYear" Nullable="false" />
+          <Property Type="Int32" Name="directorID" Nullable="false" />
+          <Property Type="Int32" Name="ratingID" Nullable="false" />
+          <Property Type="String" Name="notes" Nullable="true" MaxLength="152" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="middleName" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="birthDate" Nullable="false" />
+          <Property Type="DateTime" Name="deathDate" Nullable="true" />
+          <Property Type="String" Name="rating" Nullable="false" MaxLength="5" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectDVDByRating_Result">
+          <Property Type="Int32" Name="dvdID" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="releaseYear" Nullable="false" />
+          <Property Type="Int32" Name="directorID" Nullable="false" />
+          <Property Type="Int32" Name="ratingID" Nullable="false" />
+          <Property Type="String" Name="notes" Nullable="true" MaxLength="152" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="middleName" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="birthDate" Nullable="false" />
+          <Property Type="DateTime" Name="deathDate" Nullable="true" />
+          <Property Type="String" Name="rating" Nullable="false" MaxLength="5" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectDVDByTitle_Result">
+          <Property Type="Int32" Name="dvdID" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="releaseYear" Nullable="false" />
+          <Property Type="Int32" Name="directorID" Nullable="false" />
+          <Property Type="Int32" Name="ratingID" Nullable="false" />
+          <Property Type="String" Name="notes" Nullable="true" MaxLength="152" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="middleName" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="birthDate" Nullable="false" />
+          <Property Type="DateTime" Name="deathDate" Nullable="true" />
+          <Property Type="String" Name="rating" Nullable="false" MaxLength="5" />
+        </ComplexType>
+        <ComplexType Name="sp_SelectDVDByYear_Result">
+          <Property Type="Int32" Name="dvdID" Nullable="false" />
+          <Property Type="String" Name="title" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="releaseYear" Nullable="false" />
+          <Property Type="Int32" Name="directorID" Nullable="false" />
+          <Property Type="Int32" Name="ratingID" Nullable="false" />
+          <Property Type="String" Name="notes" Nullable="true" MaxLength="152" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="15" />
+          <Property Type="String" Name="middleName" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="birthDate" Nullable="false" />
+          <Property Type="DateTime" Name="deathDate" Nullable="true" />
+          <Property Type="String" Name="rating" Nullable="false" MaxLength="5" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DVDLibraryModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Directors">
+            <EntityTypeMapping TypeName="DVDLibraryModel.Director">
+              <MappingFragment StoreEntitySet="Director">
+                <ScalarProperty Name="directorID" ColumnName="directorID" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+                <ScalarProperty Name="deathDate" ColumnName="deathDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DVDs">
+            <EntityTypeMapping TypeName="DVDLibraryModel.DVD">
+              <MappingFragment StoreEntitySet="DVD">
+                <ScalarProperty Name="dvdID" ColumnName="dvdID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="releaseYear" ColumnName="releaseYear" />
+                <ScalarProperty Name="directorID" ColumnName="directorID" />
+                <ScalarProperty Name="ratingID" ColumnName="ratingID" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ratings">
+            <EntityTypeMapping TypeName="DVDLibraryModel.Rating">
+              <MappingFragment StoreEntitySet="Ratings">
+                <ScalarProperty Name="ratingID" ColumnName="ratingID" />
+                <ScalarProperty Name="rating1" ColumnName="rating" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_DirectorDelete" FunctionName="DVDLibraryModel.Store.sp_DirectorDelete" />
+          <FunctionImportMapping FunctionImportName="sp_DirectorInsert" FunctionName="DVDLibraryModel.Store.sp_DirectorInsert" />
+          <FunctionImportMapping FunctionImportName="sp_DirectorSelect" FunctionName="DVDLibraryModel.Store.sp_DirectorSelect">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DVDLibraryModel.sp_DirectorSelect_Result">
+                <ScalarProperty Name="directorID" ColumnName="directorID" />
+                <ScalarProperty Name="director" ColumnName="director" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_DirectorUpdate" FunctionName="DVDLibraryModel.Store.sp_DirectorUpdate" />
+          <FunctionImportMapping FunctionImportName="sp_DVDDelete" FunctionName="DVDLibraryModel.Store.sp_DVDDelete" />
+          <FunctionImportMapping FunctionImportName="sp_DVDInsert" FunctionName="DVDLibraryModel.Store.sp_DVDInsert" />
+          <FunctionImportMapping FunctionImportName="sp_DVDSelect" FunctionName="DVDLibraryModel.Store.sp_DVDSelect">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DVDLibraryModel.sp_DVDSelect_Result">
+                <ScalarProperty Name="dvdID" ColumnName="dvdID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="releaseYear" ColumnName="releaseYear" />
+                <ScalarProperty Name="directorID" ColumnName="directorID" />
+                <ScalarProperty Name="ratingID" ColumnName="ratingID" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_DVDSelectdetail" FunctionName="DVDLibraryModel.Store.sp_DVDSelectdetail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DVDLibraryModel.sp_DVDSelectdetail_Result">
+                <ScalarProperty Name="dvdID" ColumnName="dvdID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="releaseYear" ColumnName="releaseYear" />
+                <ScalarProperty Name="directorID" ColumnName="directorID" />
+                <ScalarProperty Name="ratingID" ColumnName="ratingID" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+                <ScalarProperty Name="deathDate" ColumnName="deathDate" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_DVDUpdate" FunctionName="DVDLibraryModel.Store.sp_DVDUpdate" />
+          <FunctionImportMapping FunctionImportName="sp_RatingDelete" FunctionName="DVDLibraryModel.Store.sp_RatingDelete" />
+          <FunctionImportMapping FunctionImportName="sp_RatingInsert" FunctionName="DVDLibraryModel.Store.sp_RatingInsert" />
+          <FunctionImportMapping FunctionImportName="sp_RatingSelect" FunctionName="DVDLibraryModel.Store.sp_RatingSelect">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DVDLibraryModel.sp_RatingSelect_Result">
+                <ScalarProperty Name="ratingID" ColumnName="ratingID" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_RatingUpdate" FunctionName="DVDLibraryModel.Store.sp_RatingUpdate" />
+          <FunctionImportMapping FunctionImportName="sp_SelectDVDByDirector" FunctionName="DVDLibraryModel.Store.sp_SelectDVDByDirector">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DVDLibraryModel.sp_SelectDVDByDirector_Result">
+                <ScalarProperty Name="dvdID" ColumnName="dvdID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="releaseYear" ColumnName="releaseYear" />
+                <ScalarProperty Name="directorID" ColumnName="directorID" />
+                <ScalarProperty Name="ratingID" ColumnName="ratingID" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+                <ScalarProperty Name="deathDate" ColumnName="deathDate" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectDVDByID" FunctionName="DVDLibraryModel.Store.sp_SelectDVDByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DVDLibraryModel.sp_SelectDVDByID_Result">
+                <ScalarProperty Name="dvdID" ColumnName="dvdID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="releaseYear" ColumnName="releaseYear" />
+                <ScalarProperty Name="directorID" ColumnName="directorID" />
+                <ScalarProperty Name="ratingID" ColumnName="ratingID" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+                <ScalarProperty Name="deathDate" ColumnName="deathDate" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectDVDByRating" FunctionName="DVDLibraryModel.Store.sp_SelectDVDByRating">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DVDLibraryModel.sp_SelectDVDByRating_Result">
+                <ScalarProperty Name="dvdID" ColumnName="dvdID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="releaseYear" ColumnName="releaseYear" />
+                <ScalarProperty Name="directorID" ColumnName="directorID" />
+                <ScalarProperty Name="ratingID" ColumnName="ratingID" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+                <ScalarProperty Name="deathDate" ColumnName="deathDate" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectDVDByTitle" FunctionName="DVDLibraryModel.Store.sp_SelectDVDByTitle">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DVDLibraryModel.sp_SelectDVDByTitle_Result">
+                <ScalarProperty Name="dvdID" ColumnName="dvdID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="releaseYear" ColumnName="releaseYear" />
+                <ScalarProperty Name="directorID" ColumnName="directorID" />
+                <ScalarProperty Name="ratingID" ColumnName="ratingID" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+                <ScalarProperty Name="deathDate" ColumnName="deathDate" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_SelectDVDByYear" FunctionName="DVDLibraryModel.Store.sp_SelectDVDByYear">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DVDLibraryModel.sp_SelectDVDByYear_Result">
+                <ScalarProperty Name="dvdID" ColumnName="dvdID" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="releaseYear" ColumnName="releaseYear" />
+                <ScalarProperty Name="directorID" ColumnName="directorID" />
+                <ScalarProperty Name="ratingID" ColumnName="ratingID" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="middleName" ColumnName="middleName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="birthDate" ColumnName="birthDate" />
+                <ScalarProperty Name="deathDate" ColumnName="deathDate" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
